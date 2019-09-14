@@ -5,4 +5,7 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-CMD ["gunicorn"  , "-b", "127.0.0.1:8080", "main:APP"]
+CMD ["gunicorn", "-b", ":8080", "main:APP"]
+
+# docker build --tag jwt-api-test .
+# docker run -p 80:8080 --env-file env_file jwt-api-test
