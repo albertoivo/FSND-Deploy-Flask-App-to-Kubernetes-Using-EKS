@@ -14,9 +14,10 @@ echo '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": [
 aws iam put-role-policy --role-name UdacityFlaskDeployCBKubectlRole --policy-name eks-describe --policy-document file:///tmp/iam-role-policy
 
 sudo kubectl get -n kube-system configmap/aws-auth -o yaml > /tmp/aws-auth-patch.yml
+<add the roleARN>
 sudo kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-patch.yml)"
 
-aws ssm put-parameter --name JWT_SECRET --value "YourJWTSecret" --type SecureString
+aws ssm put-parameter --name JWT_SECRET --value "myjwtsecret" --type SecureString
 
 export TOKEN=`curl -d '{"email":"albertoivo@gmail.com","password":"abc123"}' -H "Content-Type: application/json" -X POST 10.100.0.1/auth  | jq -r '.token'`
 
