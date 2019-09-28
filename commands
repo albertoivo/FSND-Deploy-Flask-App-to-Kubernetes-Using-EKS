@@ -19,6 +19,8 @@ sudo kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-aut
 
 aws ssm put-parameter --name JWT_SECRET --value "myjwtsecret" --type SecureString
 
-export TOKEN=`curl -d '{"email":"albertoivo@gmail.com","password":"abc123"}' -H "Content-Type: application/json" -X POST 10.100.0.1/auth  | jq -r '.token'`
+export TOKEN=`curl -d '{"email":"albertoivo@gmail.com","password":"abc123"}' -H "Content-Type: application/json" -X POST a89fd9e36e1e411e9a77e0eb49b8ca5c-1279669847.us-west-2.elb.amazonaws.com/auth  | jq -r '.token'`
+
+curl --request GET 'a89fd9e36e1e411e9a77e0eb49b8ca5c-1279669847.us-west-2.elb.amazonaws.com/contents' -H "Authorization: Bearer ${TOKEN}" | jq
 
 eksctl delete cluster simple-jwt-api
