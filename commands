@@ -1,7 +1,7 @@
 docker build --tag jwt-api-test .
 docker run -p 80:8080 --env-file env_file jwt-api-test
 
-export TOKEN=`curl -d '{"email":"albertoivo@gmail.com","password":"abc123"}' -H "Content-Type: application/json" -X POST localhost:80/auth  | jq -r '.token'`
+export TOKEN=`curl -d '{"email":"reviewer@udacity.com","password":"abc123"}' -H "Content-Type: application/json" -X POST localhost:80/auth  | jq -r '.token'`
 echo $TOKEN
 curl --request GET 'http://127.0.0.1:80/contents' -H "Authorization: Bearer ${TOKEN}" | jq .
 
